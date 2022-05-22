@@ -1,5 +1,6 @@
 import template from '../src/card.hbs'
 import './css/styles.css';
+import { fetchCountries } from './fetch-countries'
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix';
 const DEBOUNCE_DELAY = 300;
@@ -51,13 +52,6 @@ if(data.length < 10 && data.length >= 2){
 
 }
 
-
-
-function fetchCountries(name) {
-return fetch(`https://restcountries.com/v3.1/name/${name}?fields=name,capital,population,flags,languages`)
-   
-}
-
 function makeListMarkup(data){
     const markup = data.reduce((acc, country) => {
      return   acc += `<li><img src =${country.flags.png} width = 70px></img>${country.name.official}</li>`
@@ -65,10 +59,10 @@ function makeListMarkup(data){
     refs.countryList.innerHTML = markup
     }
 
-
 function clearList(){
 refs.countryList.innerHTML = ''
 }
+
 
 function clearCountryInfo(){
 refs.countryInfo.innerHTML = ''
